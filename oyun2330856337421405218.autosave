@@ -1,0 +1,50 @@
+import ddf.minim.*;
+void setup() {
+  size(400, 400);
+  Minim minim = new Minim(this);
+  ding = minim.loadSample("ding.mp3");
+  ball = loadImage("ball.jpg");
+}
+
+int x = 200;
+int y = 0;
+int hizY = 3;
+int hizX = 3;
+int rectY = 350;
+int sayac = 0;
+int sonuc = 0;
+AudioSample ding;
+PImage ball;
+
+void draw() {
+  background(150, 150, 150);
+  image(ball, x, y);
+  y = y + hizY;
+  x = x + hizX;
+  rect(mouseX, 380, 70, 20);
+  text(sayac, 10, 30);
+  textSize(32);
+  if (y > 380 && mouseX < x && x < mouseX + 70) {
+    if (sonuc == 0) {  
+      hizY =hizY + 1; 
+      hizY = -1 * hizY;
+      sayac = sayac + 1;
+    }
+  }
+
+  if (y < 0) {
+    hizY = -1 * hizY;
+  }
+  if (x < 0) {
+    hizX = -1 * hizX;
+  }
+  if (y > 390) {
+    text("tekrar denemelisin!", 50, 200);
+    textSize(16);
+    ding.trigger();
+    sonuc = 1;
+  }
+  if (x > 390) {
+    hizX = -1 * hizX;
+  }
+}
